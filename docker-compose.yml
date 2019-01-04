@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  workspace:
+    build:
+      context: ./docker/workspace
+      args:
+        - PHP_VERSION=7.2
+        - INSTALL_XDEBUG=false
+        - INSTALL_PHPREDIS=true
+        - INSTALL_NODE=true
+        - NPM_REGISTRY=
+        - INSTALL_YARN=false
+        - COMPOSER_GLOBAL_INSTALL=true
+        - COMPOSER_REPO_PACKAGIST=
+        - INSTALL_WORKSPACE_SSH=true
+        - INSTALL_LARAVEL_INSTALLER=true
+        - INSTALL_IMAGEMAGICK=false
+        - INSTALL_DUSK_DEPS=false
+        - INSTALL_PG_CLIENT=false
+        - PUID=1000
+        - PGID=1000
+        - CHROME_DRIVER_VERSION=2.32
+        - NODE_VERSION=stable
+        - YARN_VERSION=latest
+        - TZ=UTC
+
+    volumes:
+      - ./:/var/www:cached
+    extra_hosts:
+      - "dockerhost:10.0.75.1"
+      - "dockertoolboxhost:192.168.99.100"
+    tty: true
+    environment:
+      - PHP_IDE_CONFIG=serverName=local-docker
